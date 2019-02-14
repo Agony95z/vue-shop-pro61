@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1550120693431'); /* IE9 */
+  src: url('iconfont.eot?t=1550120693431#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAQsAAsAAAAACDgAAAPdAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqEHINKATYCJAMMCwgABCAFhG0HORsTB8gusG14E0Q4O2w6eAEXAJg5sXiAP/b+ubFs2igS5xU2CoqkCUTTRrOieeX/IgnU9kHe8Hn6L+2YdnQGqx2g4lVIM/OfBvn6JZ+sWsBogAAjwA0owAT5j3vHf4m33l2ey1wDP3UBxgEFNNamROICCVBjbhi78iL2E1CujRtkjJaSA9RkxrCAsMnnMoBaSifXFAelguKSuVk4BcpK4zHpIgBO/M+Hf8AnNaKixDhoZiOeDaJ+Ul+7pJb/lKRW0DKeBWwRCf2ATFgotc0jh7F+ZOWKTKk+u1gWxLGChf/4PFVSbP7hEQVCMaOwEnSjeOQn1ebFchcoOGv+zemL3UbiDgBfdH0j4xWS2KKpvmpTj9y+nXfzZg44eROL87fitc7csU0Lt9kADdc7yOyNPdcstraKqcj3O/m3buXWD5sMj4KWKf0hu6GbObdvOzwajlhOTJrNXgmcu+D45Lq6OdlqOLHhMDJhaDriXDgzOWk0YzV558SRA2coe07t22ewfcvi3Hx4eFx/bGzJZsM2Q0Nj+kPj4/vsl83c4MTlQyYVewZw500YjnpsbHZAh4zylnED4zFj8zEQjF9fpvhc+1Ne5dJUA6metDxF25ax6XQlnlFqQr9zPz7biAciZ0Kr5VZP/7N0ruQcxeKRPKY/FcmQCXKRHIT+PCQDhD8lzUhdGzUWCGjVrx+73JAWkTdWZ/u6VhNtzNJyldFpY2vo1F/C7THVMlrX7NqbOsO4d73flehVoUXqJ9Z8+rxF6euk7RaT1Jh8NVYTzcrunOaC1+RZrV8XZGaelo+p+/tu22+t7p+bONGrnOLzjOKhGe/tMnpD9wpq+o5e3NX6vFaX4YN7qSn/j54yWAJQeJoj435Cek5u/bvf8fpKY7dcK+yrmgx+7DH6Cj0FGbTLB0pFWvP/Jb9lTVaFhj5lmWfzdEey/14sEcjhcn+wFOo97u9oAmJLUMr5EKISrZCUakcy0Q9FKgxAsVKDUK4PfVaFBjiykMvQuyIuhKDWLkTVPkNS6xKSiUdQpNlbKFYbGcrNBr01K3TGR2NxyCAgG2PWYnyWVMKxjAQaFGdBbqWIgSeFPiUP4gp+EPP28Mom6VAC8TEmKKq4PgTBwTi4VIzRwGFQJJJiMlwqgCzCg0cQshBPT07ZkzxYUjFAjcJBDASIDcNUC8PHIiXBcRsT0Nz7s0BclUQY8BpShTUPhFPgt47x5sGrBUKXSVqRruURhSpcPggEDgwHTkoMQwMWSGTGpDCy8l4CEAvBA69HRCaEJ6rHaSvzmF8hfr5NUM6oTiGGFLKiU2f2UWXw3SsVWgAAAAAA') format('woff2'),
+  url('iconfont.woff?t=1550120693431') format('woff'),
+  url('iconfont.ttf?t=1550120693431') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1550120693431#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icon2:before {
+  content: "\e62a";
+}
+
+.icon-ai-user:before {
+  content: "\e60c";
+}
+
