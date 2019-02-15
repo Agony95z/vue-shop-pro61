@@ -2,7 +2,7 @@
   <div id="login-container">
     <div id="login-box">
       <div id="login-logo">
-        <img src="../assets/logo.png" alt>
+        <img src="../assets/img/logo.png" alt>
       </div>
       <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
         <el-form-item prop="username">
@@ -11,7 +11,7 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password">
+          <el-input v-model="loginForm.password" type="password">
             <span slot="prefix" class="iconfont icon-icon2"></span>
           </el-input>
         </el-form-item>
@@ -31,8 +31,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       loginFormRules: {
         username: [
