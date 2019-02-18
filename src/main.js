@@ -6,7 +6,7 @@ import './assets/css/global.css'
 // 引入element-ui
 import ElementUI from 'element-ui'
 // 导入font字体
-import '../src/assets/fonts/iconfont.css'
+import './assets/fonts/iconfont.css'
 import './assets/fonts1/iconfont.css'
 // 引入axios
 import axios from 'axios'

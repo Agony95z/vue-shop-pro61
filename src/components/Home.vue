@@ -18,10 +18,12 @@
           active-text-color="#409EFF"
           :collapse-transition="false"
           :collapse="menushow"
-          :style="menushow?'width:65px;':'width:200px'"
           :unique-opened="true"
+          :router="true"
         >
-          <el-submenu :index="item.id+''" v-for="(item,k) in menuList" :key="item.id">
+          <el-submenu :index="item.id+''" v-for="(item,k) in menuList" :key="item.id"
+          :style="menushow?'width:65px;':'width:200px'"
+          >
             <template slot="title">
               <i :class="'iconfont icon-'+menuicon[k]"></i>
               <span>{{item.authName}}</span>
@@ -76,7 +78,6 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.error(res.meta.msg)
       }
-      console.log(res)
       // 把获得的数据给menuList
       this.menuList = res.data
     }

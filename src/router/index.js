@@ -6,6 +6,8 @@ import Login from '@/components/Login'
 import Home from '@/components/Home'
 // 导入第三级组件Welcome
 import Welcome from '@/components/Welcome'
+// 导入第三级组件User
+import User from '@/components/User'
 Vue.use(Router)
 var router = new Router({
   routes: [
@@ -14,11 +16,11 @@ var router = new Router({
     {
       path: '/home',
       component: Home,
-      redirect: '/welcome', 
-      children: [{
-        path: '/welcome',
-        component: Welcome
-      }]
+      redirect: '/welcome',
+      children: [
+        { path: '/welcome', component: Welcome },
+        { path: '/users', component: User }
+      ]
     }
   ]
 })
