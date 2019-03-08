@@ -8,6 +8,19 @@ import Home from '@/components/Home'
 import Welcome from '@/components/Welcome'
 // 导入第三级组件User
 import User from '@/components/User'
+// 导入第三级组件Rights权限管理
+import Rights from '@/components/Rights'
+// 导入角色管理组件
+import Roles from '@/components/Roles'
+// 导入分类组件
+import Categories from '@/components/Categories'
+// 导入商品参数组件
+import Params from '@/components/Params'
+// 导入商品介绍组件
+import Goods from '@/components/Goods'
+import GoodsAdd from '@/components/GoodsAdd'
+// 导入报表
+import Report from '@/components/Report'
 Vue.use(Router)
 var router = new Router({
   routes: [
@@ -19,7 +32,14 @@ var router = new Router({
       redirect: '/welcome',
       children: [
         { path: '/welcome', component: Welcome },
-        { path: '/users', component: User }
+        { path: '/users', component: User },
+        { path: '/rights', component: Rights },
+        { path: '/roles', component: Roles },
+        { path: '/categories', component: Categories },
+        { path: '/params', component: Params },
+        { path: '/goods', component: Goods },
+        { path: '/goodsadd', component: GoodsAdd },
+        { path: '/reports', component: Report }
       ]
     }
   ]

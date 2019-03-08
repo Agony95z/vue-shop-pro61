@@ -56,7 +56,12 @@
               @click="delUser(info.row.id)"
             ></el-button>
             <el-tooltip :enterable="false" content="分配角色" placement="top-end">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+                @click="distributionDialog(info.row.id)"
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -72,7 +77,7 @@
         :total="total"
       ></el-pagination>
       <!-- 添加用户的dialog弹窗-->
-      <el-dialog title="提示" :visible.sync="dialogVisible" @close="addDialogClose" width="50%">
+      <el-dialog title="添加用户" :visible.sync="dialogVisible" @close="addDialogClose" width="50%">
         <span slot="footer" class="dialog-footer">
           <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="100px">
             <el-form-item label="用户名" prop="username">
@@ -93,7 +98,12 @@
         </span>
       </el-dialog>
       <!-- 修改用户的弹窗 -->
-      <el-dialog title="提示" :visible.sync="showDialogVisible" width="50%">
+      <el-dialog
+        title="更新用户"
+        :visible.sync="showDialogVisible"
+        @close="editDialogClose"
+        width="50%"
+      >
         <span slot="footer" class="dialog-footer">
           <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
             <el-form-item label="用户名" prop="username">
@@ -108,6 +118,37 @@
           </el-form>
           <el-button @click="showDialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="editUser">确 定</el-button>
+        </span>
+      </el-dialog>
+      <!-- 分配用户角色的弹窗 -->
+      <el-dialog
+        title="角色分配"
+        :visible.sync="distributionDialogVisible"
+        @close="distributionDialogClose"
+        width="50%"
+      >
+        <el-form
+          :model="distributionForm"
+          :rules="distributionFormRules"
+          ref="distributionFormRef"
+          label-width="130px"
+        >
+          <!-- distributionForm.rid的值是所叫的角色名的id 和调用get('roles')返回的id是一样的，也就是下面的item.id -->
+          <el-form-item label="当前的用户" prop="username">{{distributionForm.username}}</el-form-item>
+          <el-form-item label="分配角色" prop="rid">
+            <el-select v-model="distributionForm.rid" placeholder="请选择">
+              <el-option
+                v-for="item in roleInfos"
+                :key="item.id"
+                :label="item.roleName"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="distributionDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="submitRoleInfos">确 定</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -138,6 +179,8 @@ export default {
       dialogVisible: false,
       // 控制修改的dialog是否弹出
       showDialogVisible: false,
+      // 控制分配角色的弹窗
+      distributionDialogVisible: false,
       // dialog form数据表单部分
       addForm: {
         username: '',
@@ -151,6 +194,13 @@ export default {
         email: '',
         mobile: ''
       },
+      // 分配角色的form
+      distributionForm: {
+        username: '',
+        rid: ''
+      },
+      // 用来接收角色分配查询到的信息
+      roleInfos: [],
       // 添加时form表单校验规则
       addFormRules: {
         username: [
@@ -170,6 +220,10 @@ export default {
           { validator: checkMobile, trigger: 'blur' }
         ]
       },
+      // 角色
+      distributionFormRules: {
+        rid: [{ required: true, message: '角色必须选择', trigger: 'blur' }]
+      },
       // 向后台发送携带数据
       queryParams: {
         query: '',
@@ -182,6 +236,37 @@ export default {
     }
   },
   methods: {
+    // 分配角色
+    async distributionDialog(id) {
+      this.distributionDialogVisible = true
+      // 查询当前被分配角色的用户信息
+      const { data: res } = await this.$http.get('users/' + id)
+      if (res.meta.status !== 200) {
+        return this.$message.error(res.meta.msg)
+      }
+      this.distributionForm = res.data
+      // console.log(this.distributionForm)
+      // 把用于分配的角色信息查出来
+      const { data: res2 } = await this.$http.get('roles')
+      if (res2.meta.status !== 200) {
+        return this.$message.error(res2.meta.msg)
+      }
+      // 把查询出来的角色给
+      this.roleInfos = res2.data
+    },
+    // 修改角色提交
+    async submitRoleInfos() {
+      const { data: res } = await this.$http.put(
+        `users/${this.distributionForm.id}/role`,
+        this.distributionForm
+      )
+      if (res.meta.status !== 200) {
+        return this.$message.error(res.meta.msg)
+      }
+      this.distributionDialogVisible = false
+      this.$message.success(res.meta.msg)
+      this.getUserInfos()
+    },
     // 修改用户时  用户信息展示
     async showEditDialog(id) {
       this.showDialogVisible = true
@@ -200,7 +285,6 @@ export default {
             'users/' + this.editForm.id,
             this.editForm
           )
-          console.log(res)
           if (res.meta.status !== 200) {
             this.$message.error(res.meta.msg)
           }
@@ -220,7 +304,6 @@ export default {
       })
         .then(async() => {
           const { data: res } = await this.$http.delete(`users/${id}`)
-          console.log(res)
           if (res.meta.status !== 200) {
             return this.$message.error(res.meta.msg)
           }
@@ -228,6 +311,11 @@ export default {
             type: 'success',
             message: '删除成功!'
           })
+          // 判断删除数据之前，当前页码数据是否只有一条，只有一条的话，页码-1
+          if (this.tableData3.length === 1 && this.queryParams.pagenum > 1) {
+            this.queryParams.pagenum--
+          }
+          this.getUserInfos()
         })
         .catch(() => {
           this.$message({
@@ -255,6 +343,14 @@ export default {
     },
     // 添加用户时关闭dialog的时候清空输入框
     addDialogClose() {
+      this.$refs.addFormRef.resetFields()
+    },
+    // 修改用户关闭dialog的时候清空
+    editDialogClose() {
+      this.$refs.addFormRef.resetFields()
+    },
+    // 角色分配 关闭dialog时候清空
+    distributionDialogClose() {
       this.$refs.addFormRef.resetFields()
     },
     // 获取首屏用户数据
